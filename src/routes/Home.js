@@ -35,6 +35,7 @@ function Home({userObj}) {
       setTweets(newArray)
     })
   },[]);
+  
   return (
     <>
     <TweetFactory  userObj={userObj}/>
@@ -52,3 +53,5 @@ function Home({userObj}) {
 }
 
 export default Home
+
+

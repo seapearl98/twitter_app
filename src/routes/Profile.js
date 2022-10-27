@@ -2,7 +2,6 @@ import { authService, db, storage } from 'fbase';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { collection, addDoc, query, onSnapshot, where, orderBy, getDocs } from "firebase/firestore";
-import Tweet from 'components/Tweet';
 import { updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
@@ -45,7 +44,17 @@ export default function Profile({userObj}) {
     },[]);
 
     useEffect(() => {
-      getMyTweets();
+      //getMyTweets();
+      const q = query(collection(db, "tweets"),
+      where("createId", "==", userObj.uid),
+      orderBy("createAt", "desc"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const newArray = [];
+        querySnapshot.forEach((doc) => {
+          newArray.push({…doc.data(), id:doc.id});
+        });
+        setTweets(newArray);
+      });
     },[]);
     
     const onChange = (e) => {
@@ -57,13 +66,17 @@ export default function Profile({userObj}) {
       e.preventDefault();
       if(userObj.displayName !== newDisplayName){ //유저의 dp네임이 newDisplayName과 같지 않을경우에만 작동
         await updateProfile(userObj, {
-        displayName: newDisplayName, photoURL:""});
+        displayName: newDisplayName});
       }
-      let newphotoURL = "";
-      if(newphotoURL !== ""){
+      let photoURL = "";
+      if(userObj.photoURL !== newphotoURL){
         const storageRef = ref(storage, `${userObj.uid}/${uuidv4()}`); //로그인한사용자정보(폴더이름을얘로정함)/고유식별자생성기(파일이름을 얘로정함) -> 파일경로가 된다. ref는 경로가 되어주는 파이프역할하는 함수(경로시스템) 
       const response = await uploadString(storageRef, newphotoURL, 'data_url');
       // console.log(response)
+      photoURL = await getDownloadURL(ref(storage, response.ref))
+      await updateProfile(userObj, {photoURL});
+    }
+
   
       //---------------------------------업로드
       newphotoURL = await getDownloadURL(ref(storage, response.ref))
