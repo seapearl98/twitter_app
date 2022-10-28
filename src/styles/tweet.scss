@@ -1,0 +1,21 @@
+.tweet{position: relative;width: 100%;max-width: 320px;
+    display: flex; flex-direction: column;
+    background-color: #fff;margin-bottom: 20px; 
+    padding: 30px 20px;border-radius: 10px; 
+    color: rgba(0, 0, 0, 0.7); 
+    h4{font-size: 14px;}
+    img{position: absolute; right: 10px; top: 10%;
+        width: 50px;height: 50px;border-radius: 10px;}
+    span{color: rgba(157, 192, 211, 0.8); position: absolute; top: -20px; right: 0;
+        font-size: 11px;}
+    .tweet__actions{position: absolute;bottom: 10px;
+        span{cursor: pointer; position: relative; left: 0px; top: 50%; font-size: 14px;
+            color: rgb(200, 213, 230);
+            &:first-of-type{margin-right: 10px;}
+        }
+    }
+    .tweetEdit{
+        .formBtn{cursor: pointer;margin-top: 15px; margin-bottom: 5px; border: none;}
+    }
+}
+    

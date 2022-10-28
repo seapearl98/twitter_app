@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { authService } from 'fbase'
 import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import AuthForm from './AuthForm';
+import "styles/auth.scss"
 
 export default function Auth() {
 
@@ -18,11 +20,14 @@ export default function Auth() {
   }
   
   return (
-    <div>
+    <div className='authContainer'>
+      <FontAwesomeIcon icon="fa-brands fa-twitter"  color='#04aaff' size='3x' style={{marginBottom:30}}/>
       <AuthForm/>
-      <div>
-        <button onClick={onSocialClick} name="google">Continue with Google</button>
-        <button onClick={onSocialClick} name="github">Continue with Github</button>
+      <div className='authBtns'>
+        <button onClick={onSocialClick} name="google">
+          Continue with Google<FontAwesomeIcon icon="fa-brands fa-google" /></button>
+        <button onClick={onSocialClick} name="github">
+          Continue with Github<FontAwesomeIcon icon="fa-brands fa-github" /></button>
       </div>
     </div>
   )

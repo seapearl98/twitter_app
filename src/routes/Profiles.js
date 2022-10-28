@@ -6,6 +6,7 @@ import { collection, addDoc, query, onSnapshot,getDocs,where,orderBy } from "fir
 import { updateProfile } from "firebase/auth";
 import { v4 as uuidv4 } from 'uuid';
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
+import "styles/profiles.scss"
 
 
 function Profiles({userObj}) {
@@ -82,29 +83,16 @@ function Profiles({userObj}) {
   },[]);
   
   return (
-    <>
-    <form onSubmit={onSubmit}>
-      <input type="text" placeholder='Display name' onChange={onChange} value={newDisplayName}/>
-      <input type="submit" value="Update Profile" />
-      <input type="file" accept='image/*' onChange={onFileChange}/>
-      {newPhoto && (
-      <div>
-        <img src={newPhoto} width='50' height='50' />
-        <button onClick={onClearAttachment}>Clear</button>
-      </div>
-      )}
-    </form>
-    <button onClick={onLogOutClick}>Log Out</button>
-    <div>
-    {tweets.map(tweet => (
-      <Tweet 
-      key={tweet.id}
-      tweetObj={tweet}
-      isOwner={tweet.createId === userObj.uid}
-      />
-    ))}
+    <div className='container'>
+      <form onSubmit={onSubmit} className="profileForm">
+        <input type="text" placeholder='Display name' 
+        onChange={onChange} value={newDisplayName}
+        autoFocus className='formInput'/>
+        <input type="submit" value="Update Profile" 
+        className='formBtn' style={{marginTop:10,}}/>
+      </form>
+      <span onClick={onLogOutClick} className="cancleBtn">Log Out</span>
     </div>
-    </>
   )
 }
 

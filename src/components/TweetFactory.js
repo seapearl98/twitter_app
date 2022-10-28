@@ -4,6 +4,8 @@ import { collection, addDoc, query, getDoc, onSnapshot, orderBy, } from "firebas
 import Tweet from 'components/Tweet';
 import { v4 as uuidv4 } from 'uuid';
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import "styles/tweetFactory.scss"
 
 function TweetFactory({userObj}) {
 
@@ -50,17 +52,29 @@ const onFileChange = e => {
   const onClearnewPhoto = () => setNewPhoto("")
 
   return (
-    <form onSubmit={onSubmit}>
-    <input type="text" placeholder="What's on your mind" value={tweet} onChange={onChange} maxLength={120}/>
-    <input type="file" accept='image/*' onChange={onFileChange}/>
-    {/* accept='image/*' :image만 올릴수있게 해주는거
-        multiple : 이미지 여러장 올리기 가능
-    */}
-    <input type="submit" value="Tweet" />
+    <form onSubmit={onSubmit} className="factoryForm">
+    <div className='factoryInput__container'>
+        <input type="text" placeholder="What's on your mind" value={tweet} onChange={onChange} maxLength={120}
+        className="factoryInput__input"/>
+        <input type="submit" value="&rarr;" 
+        className='factoryInput__arrow'/>
+    </div>
+    <label htmlFor="attach-file" className='factoryInput__label'>
+      <span>Add photos</span>
+      <FontAwesomeIcon icon="fa-solid fa-plus" />
+    </label>
+    <input type="file" accept='image/*' onChange={onFileChange}
+      id="attach-file" style={{opacity:0}}/>
+        {/* accept='image/*' :image만 올릴수있게 해주는거
+            multiple : 이미지 여러장 올리기 가능
+        */}
     {newPhoto && (
-    <div>
-      <img src={newPhoto} width='50' height='50' />
-      <button onClick={onClearnewPhoto}>Clear</button>
+    <div className='factoryForm__attachment'>
+      <img src={newPhoto} style={{backgroundImage:newPhoto,}}/>
+      <div className='factoryForm__clear' onClick={onClearnewPhoto}>
+        <span>Remove</span>
+        <FontAwesomeIcon icon="fa-solid fa-xmark" />
+      </div>
     </div>
     )}
   </form>

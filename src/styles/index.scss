@@ -1,0 +1,17 @@
+@import "Reset.scss";
+*{ box-sizing: border-box;}
+input{box-sizing: border-box;appearance: none;}
+body{background-color: #000; 
+    font-family: -apple-system, BLinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans","Helvetica Neue", sans-serif;
+    font-size: 14px;color: #fff;} 
+button{background-color: #fff;color: #000;}
+a{text-decoration: none;color: inherit;}
+form{width: 100%;}
+
+.factoryInput__input::placeholder{color: #fff;opacity: 0.9;}
+.container{width: 100%;max-width: 320px;display: flex;flex-direction: column; 
+    margin: 0 auto; margin-top: 80px;}
+.formInput{width: 100%;padding: 10px 20px; border-radius: 20px; text-align: center; background-color: rgb(223, 231, 242); color: #000;}
+.formBtn{cursor: pointer; width: 100%; padding: 7px 20px; text-align: center; background-color: #04aaff; color: #fff; border-radius: 20px;}
+.cancleBtn{cursor: pointer; background-color: tomato;}
